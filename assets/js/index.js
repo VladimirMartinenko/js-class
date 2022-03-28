@@ -1,9 +1,9 @@
-class cat {
+class Cat {
   constructor(breed, nikName) {
     this.breed = breed;
     this.nikName = nikName;
     this.miceCatch = 0;
-    this.Chance = 0;
+    this.successChance = 0.4;
   }
   get nikName() {
     return this._nikName;
@@ -23,23 +23,8 @@ class cat {
   eat() {
     return "кушает";
   }
-  successChance() {
-    let num = Math.random();
-    num = num.toFixed(1);
-    this.Chance = num;
-    if (this.Chance > 0.5) {
-      return "большой шанс";
-    } else {
-      return "маленький шанс";
-    }
-  }
-
   catch() {
-    let i = Math.random();
-    i += this.Chance;
-    if (this.Chance < 0.5) {
-      return "нет смысла ,проверьте шанс ещё раз";
-    } else if (i > 0.8) {
+    if (this.successChance > Math.random()) {
       this.miceCatch++;
       return "удачная охота";
     }
@@ -47,28 +32,21 @@ class cat {
   }
 }
 
-class strayCat extends cat {
+class StrayCat extends Cat {
   constructor(nikName) {
     super("дворовой", nikName);
     this.miceEat = 0;
+    this.successChance = 0.8;
   }
-  niceEat() {
+  eat() {
     if (this.miceCatch < this.miceEat) {
       return "надо идти на охоту";
     }
     this.miceEat++;
+    this.miceCatch--;
     return "ест мышу";
-  }
-  catch() {
-    if (this.Chance < 0.5) {
-      return "нет смысла ,проверьте шанс ещё раз";
-    } else if (this.Chance > 0.6) {
-      this.miceCatch++;
-      return "удачная охота";
-    }
-    return "неудачная охота";
   }
 }
 
-const tmp = new cat("перс", "Вася");
-const trp = new strayCat("Пушок");
+const tmp = new Cat("перс", "Вася");
+const trp = new StrayCat("Пушок");
