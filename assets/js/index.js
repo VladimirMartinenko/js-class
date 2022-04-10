@@ -43,7 +43,6 @@ class StrayCat extends Cat {
       return "надо идти на охоту";
     }
     this.miceEat++;
-    this.miceCatch--;
     return "ест мышу";
   }
 }
